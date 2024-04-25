@@ -9,13 +9,16 @@ function App() {
   const [docId, setDocId] = useState("");
   const [caseId, setCaseId] = useState("");
   const [fileHash, setFileHash] = useState("");
+  const [docType, setDocType] = useState("");
+  const [name, setName] = useState("");
+  const [addr, setAddr] = useState("");
+  const [role, setRole] = useState("");
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
     try {
       const fileData = new FormData();
@@ -43,33 +46,50 @@ function App() {
       const fileUrl =
         "https://gateway.pinata.cloud/ipfs/" + responseData.data.IpfsHash;
 
-      console.log(fileUrl);
+      const { IpfsHash } = responseData.data;
+      console.log("Hash: ", IpfsHash);
+      console.log("URL: ", fileUrl);
+      setFileHash(IpfsHash);
 
-      const {ipfsHash} = responseData.data;
-      setFileHash(ipfsHash);
-
-       // Send inputs to backend
-      await sendInputsToBackend(ipfsHash, docId, caseId);
+      // Send inputs to backend
+      await sendInputsToBackend(
+        IpfsHash,
+        docId,
+        caseId,
+        docType,
+        name,
+        addr,
+        role
+      );
     } catch (error) {
       console.error("Error uploading file to Pinata:", error);
     }
-  }
-
-  const sendInputsToBackend = async (ipfsHash, docId, caseId) => {
+  };
+  const sendInputsToBackend = async (
+    ipfsHash,
+    docId,
+    caseId,
+    docType,
+    name,
+    addr,
+    role
+  ) => {
     try {
-      const response = await axios.post(
-        "BACKEND_API_URL",
-        {
-          ipfsHash,
-          docId,
-          caseId,
-        }
-      );
+      const response = await axios.post("http://localhost:3000/api/submit", {
+        ipfsHash,
+        docId,
+        caseId,
+        docType,
+        name,
+        addr,
+        role,
+      });
       console.log(response.data);
     } catch (error) {
       console.error("Error sending inputs to backend:", error);
     }
-  }
+  };
+
 
   return (
     <>
@@ -88,6 +108,30 @@ function App() {
             value={caseId}
             onChange={(e) => setCaseId(e.target.value)}
             placeholder="Case ID"
+          />
+          <input
+            type="text"
+            value={docType}
+            onChange={(e) => setDocType(e.target.value)}
+            placeholder="Document Type"
+          />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
+          />
+          <input
+            type="text"
+            value={addr}
+            onChange={(e) => setAddr(e.target.value)}
+            placeholder="Address"
+          />
+          <input
+            type="text"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            placeholder="Role"
           />
           <button type="submit">Submit</button>
         </form>
