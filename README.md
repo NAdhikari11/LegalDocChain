@@ -55,7 +55,7 @@ npm run dev
 
 ## Usage
 
-1. In the frontend application, fill in the required fields (document ID, case ID, document type, name, address, role).
+1. In the frontend application, fill in the required fields (document ID, case ID, document type).
 2. Select a file to upload.
 3. Click the "Submit" button to upload the file to Pinata and send the data to the backend.
 4. Check the console logs in the backend terminal for the received data.
