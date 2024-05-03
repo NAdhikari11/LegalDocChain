@@ -9,8 +9,9 @@ import { storeDocOnBlockchain } from "../services/blockchainUploadDoc";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { viewDocByCaseId } from "../services/viewByCaseId";
-import {getUrlFromIpfsHash} from "../services/getUrlFromIpfsHash";
+import { getUrlFromIpfsHash } from "../services/getUrlFromIpfsHash";
 import DocTable from "../components/DocTable";
+import ViewTypeButton from "../components/ViewType";
 
 export default function ViewDocComponent() {
   const [fileUrl, setFileUrl] = useState("");
@@ -20,14 +21,13 @@ export default function ViewDocComponent() {
 
   const navigate = useNavigate();
 
-  const [dataArray, setDataArray] = useState([
-    { docId: 133, caseId: 29, docType: "pan card", url: "https://www.google.com"},
-    { docId: 133, caseId: 29, docType: "pan card", url: "https://www.google.com"},
-    { docId: 133, caseId: 29, docType: "pan card", url: "https://www.google.com"},
-  ]);
+  const [dataArray, setDataArray] = useState([]);
 
   const pushToArray = (docId, caseId, docType, url) => {
-    const newArray = [...dataArray, {docId: docId, caseId: caseId, docType: docType, url: url}];
+    const newArray = [
+      ...dataArray,
+      { docId: docId, caseId: caseId, docType: docType, url: url },
+    ];
     setDataArray(newArray);
     console.log(newArray);
   };
@@ -45,7 +45,9 @@ export default function ViewDocComponent() {
       setDocType(res[2]);
       setFileUrl(url);
 
-      pushToArray(docId, caseId, docType, fileUrl);
+      console.log(docId, caseId, docType, fileUrl);
+
+      pushToArray(res[0], res[1], res[2], url);
 
       toast("Document retrieved from blockchain ");
     } catch (err) {
@@ -56,7 +58,7 @@ export default function ViewDocComponent() {
   return (
     <>
       <CustomToastContainer />
-
+      <ViewTypeButton />
       <form className="mx-10 my-10" onSubmit={handleSubmit}>
         <div className="space-y-12">
           <div className="pb-4">
@@ -91,46 +93,6 @@ export default function ViewDocComponent() {
                   />
                 </div>
               </div>
-              {/* <div className="sm:col-span-3">
-                <label
-                  htmlFor="first-name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Case ID
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    value={caseId}
-                    onChange={(e) => setCaseId(e.target.value)}
-                    placeholder="Case ID"
-                    // name="first-name"
-                    // id="first-name"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-3">
-                <label
-                  htmlFor="first-name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Document name
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    value={docType}
-                    onChange={(e) => setDocType(e.target.value)}
-                    placeholder="Document Type"
-                    // name="first-name"
-                    // id="first-name"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div> */}
             </div>
           </div>
         </div>
