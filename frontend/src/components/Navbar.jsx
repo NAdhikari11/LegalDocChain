@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import logo from '../assets/blockchain.png';
 
 const navigation = [
   { name: 'Home', href: '/', current: false },
@@ -36,7 +37,8 @@ export default function Navbar() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
-                    src="https://img.freepik.com/free-psd/gradient-abstract-logo_23-2150689652.jpg?w=996&t=st=1714610589~exp=1714611189~hmac=e30f5f595af867fbaf2cdd46c13373d00e163336b29d40c145a5aef8fc3a6eb5"
+                    src={logo}
+                    // src="https://img.freepik.com/free-psd/gradient-abstract-logo_23-2150689652.jpg?w=996&t=st=1714610589~exp=1714611189~hmac=e30f5f595af867fbaf2cdd46c13373d00e163336b29d40c145a5aef8fc3a6eb5"
                     alt="Your Company"
                   />
                 </div>

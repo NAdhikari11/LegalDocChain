@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 import MainLayout from "./layouts/MainLayout";
 import ViewDocComponent from "./pages/ViewDoc";
 import User from "./pages/User";
+import ViewByCaseIdComponent from "./pages/ViewDocCaseId";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
       <Route path="upload" element={<UploadDocComponent />} />
       <Route path="view" element={<ViewDocComponent />} />
       <Route path="user" element={<User />} />
+      <Route path="/viewCase" element={<ViewByCaseIdComponent />} />
     </Route>
   )
 );

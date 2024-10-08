@@ -32,11 +32,11 @@ export const storeDocOnBlockchain = async (
     // console.log(`docType: ${docType}`);
     // console.log(`fileHash: ${fileHash}`);
 
-    // const response = await contract.storeDocument(caseId, docId, docType, fileHash, owner, creator);
-    // console.log(`response: ${response}`);
+    const response = await contract.storeDocument(caseId, docId, docType, fileHash, owner, creator);
+    console.log(`response: ${response}`);
 
-    const data = await contract.getDocumentByDocId(docId);
-    console.log(`data: ${data}`);
+    // const data = await contract.getDocumentByDocId(docId);
+    // console.log(`data: ${data}`);
   } catch (err) {
     console.log(err);
     throw "Error storing document on blockchain";
