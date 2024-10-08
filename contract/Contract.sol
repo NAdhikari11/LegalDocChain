@@ -49,6 +49,26 @@ contract DocumentVault {
         return (myDoc.docId, myDoc.caseId, myDoc.docType, myDoc.docContent);
     }
 
+    function getDocumentByCaseId(uint _caseId) external view returns (uint[] memory docIds, string[] memory docTypes, string[] memory docContents) {
+        uint[] storage documentIds = caseIdToDocuments[_caseId];  // Get the document IDs associated with the case
+        uint numDocs = documentIds.length;
+
+        // Create arrays to hold document types and contents
+        string[] memory types = new string[](numDocs);
+        string[] memory contents = new string[](numDocs);
+
+        for (uint i = 0; i < numDocs; i++) {
+            uint docId = documentIds[i];  // Get document ID
+            Document storage myDoc = idToDocuments[docId];  // Retrieve document by ID
+
+            types[i] = myDoc.docType;       // Store document type
+            contents[i] = myDoc.docContent; // Store document content
+        }
+
+        return (documentIds, types, contents);
+    }
+
+
     function storeDocument(
         uint _caseId,
         uint _docId,
@@ -95,5 +115,25 @@ contract DocumentVault {
             addr: _addr,
             role: "General"
         });
+    }
+
+    function getDocumentByUser() external view returns (uint[] memory docIds, uint[] memory caseIds, string[] memory docTypes, string[] memory docContents) {
+        uint[] storage documentIds = addressToDocId[msg.sender];  // Fetch document IDs for the user
+        uint numDocs = documentIds.length;
+
+        uint[] memory cases = new uint[](numDocs);
+        string[] memory types = new string[](numDocs);
+        string[] memory contents = new string[](numDocs);
+
+        for (uint i = 0; i < numDocs; i++) {
+            uint docId = documentIds[i];  
+            Document storage myDoc = idToDocuments[docId]; 
+
+            cases[i] = myDoc.caseId;      
+            types[i] = myDoc.docType;      
+            contents[i] = myDoc.docContent; 
+        }
+
+        return (documentIds, cases, types, contents);
     }
 }

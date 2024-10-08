@@ -57,7 +57,7 @@ export default function ViewTypeButton() {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  href="#"
+                  href="viewWalletAddress"
                   onClick={() => console.log("hello")}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',

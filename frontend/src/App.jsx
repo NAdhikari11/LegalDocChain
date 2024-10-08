@@ -12,6 +12,7 @@ import MainLayout from "./layouts/MainLayout";
 import ViewDocComponent from "./pages/ViewDoc";
 import User from "./pages/User";
 import ViewByCaseIdComponent from "./pages/ViewDocCaseId";
+import ViewByWalletAddressComponent from "./pages/ViewDocWalletAddress";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route path="view" element={<ViewDocComponent />} />
       <Route path="user" element={<User />} />
       <Route path="/viewCase" element={<ViewByCaseIdComponent />} />
+      <Route path="/viewWalletAddress" element={<ViewByWalletAddressComponent />} />
     </Route>
   )
 );

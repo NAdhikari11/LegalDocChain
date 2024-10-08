@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import DocTable from "../components/DocTable";
 import ViewTypeButton from "../components/ViewType";
 import { viewDocByCaseId } from "../services/viewByCaseId";
+import { getUrlFromIpfsHash } from "../services/getUrlFromIpfsHash";
 
 export default function ViewByCaseIdComponent() {
   const [caseId, setCaseId] = useState("");
@@ -23,7 +24,7 @@ export default function ViewByCaseIdComponent() {
         docId: doc.docId,
         caseId,
         docType: doc.docType,
-        url: `https://ipfs.io/ipfs/${doc.docContent}`, // Construct URL from IPFS hash
+        url: getUrlFromIpfsHash(doc.docContent), // Construct URL from IPFS hash
       }));
 
       setDataArray(formattedDocs); // Update state with formatted documents

@@ -1,4 +1,4 @@
-export const getUrlFromIpfsHash = async (ipfsHash) => {
+export const getUrlFromIpfsHash = (ipfsHash) => {
   try {
     const fileUrl = `${import.meta.env.VITE_IPFS_URL}${
       ipfsHash

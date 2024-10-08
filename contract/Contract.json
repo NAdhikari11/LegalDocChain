@@ -157,6 +157,34 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "getDocumentByUser",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "docIds",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "caseIds",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "docTypes",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "docContents",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
